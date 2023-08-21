@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <PROGDIR>
-    <NAME>ZR_CREATE_TOPICS</NAME>
+    <NAME>ZR_CANCEL_OPERATIONS</NAME>
     <SUBC>1</SUBC>
     <RLOAD>E</RLOAD>
     <FIXPT>X</FIXPT>
@@ -12,8 +12,8 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>Pub/Sub: Create Topics</ENTRY>
-     <LENGTH>23</LENGTH>
+     <ENTRY>Document Ai - Cancel Operation</ENTRY>
+     <LENGTH>30</LENGTH>
     </item>
    </TPOOL>
   </asx:values>

@@ -12,7 +12,7 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>Report ZR_CREATE_SUBSCRIPTIONS</ENTRY>
+     <ENTRY>Pub/Sub: Create Subscriptions</ENTRY>
      <LENGTH>30</LENGTH>
     </item>
    </TPOOL>

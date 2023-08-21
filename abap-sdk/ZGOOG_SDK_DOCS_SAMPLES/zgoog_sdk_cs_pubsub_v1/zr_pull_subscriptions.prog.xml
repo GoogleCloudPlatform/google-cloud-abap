@@ -12,8 +12,8 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>Report ZR_PULL_SUBSCRIPTIONS</ENTRY>
-     <LENGTH>28</LENGTH>
+     <ENTRY>Pub/Sub: Pull messages from a Subscription</ENTRY>
+     <LENGTH>42</LENGTH>
     </item>
    </TPOOL>
   </asx:values>

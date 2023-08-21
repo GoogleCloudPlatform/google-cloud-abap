@@ -12,8 +12,8 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>Report ZR_PUBLISH_TOPICS</ENTRY>
-     <LENGTH>24</LENGTH>
+     <ENTRY>Pub/Sub: Publish Messages to a Topic</ENTRY>
+     <LENGTH>36</LENGTH>
     </item>
    </TPOOL>
   </asx:values>
