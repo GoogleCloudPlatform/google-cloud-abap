@@ -37,7 +37,6 @@ Users are advised to pull code into their SAP enviroments using [abapGit](https:
 3. Select the package as “**Sub-directory Name**”, additionally create the package in the system if it does not exist.
 4. Select “Clone Repository”
 
-   ![Alt text](images/img-abapgit-clone-repo.png)
 
 
 
