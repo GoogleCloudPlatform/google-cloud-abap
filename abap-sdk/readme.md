@@ -21,16 +21,12 @@ To consume the code in the repository, you can use abapGit to pull the code into
 ### Repository Structure: 
 | Sub-directory             | Description   | Starting Folder in abapGit |
 | ------------------------- |---------------| ------------- |
-| [ZGOOG_SDK_ACCELERATORS](ZGOOG_SDK_ACCELERATORS) | Accelerators for rapid and efficient software build |abap-sdk/ZGOOG_SDK_ACCELERATORS
-| [ZGOOG_SDK_DEMO](ZGOOG_SDK_DEMO) | Exhaustive Demo programs | abap-sdk/ZGOOG_SDK_DEMO
 | [ZGOOG_SDK_DOCS_SAMPLES](ZGOOG_SDK_DOCS_SAMPLES) | Demo code to connect Google API’s using the SDK | abap-sdk/ZGOOG_SDK_DOCS_SAMPLES
-| [ZGOOG_SDK_GEMS](ZGOOG_SDK_GEMS) | Generic Enablement Modules which will simplify the API’s enablement and consumption for developing solutions. | abap-sdk/ZGOOG_SDK_GEMS
 | [ZGOOG_SDK_QUICKSTART](ZGOOG_SDK_QUICKSTART) | Guides intended to get a user rapidly acquainted with using ABAP SDK | abap-sdk/ZGOOG_SDK_QUICKSTART
-| [ZGOOG_SDK_UTILITIES](ZGOOG_SDK_UTILITIES) | Tools assisting SDK usages | abap-sdk/ZGOOG_SDK_UTILITIES
 
 ### Consuming the repository: 
 
-Users are advised to pull code into their SAP enviroments using (abapGit)[#] . 
+Users are advised to pull code into their SAP enviroments using [abapGit](https://abapgit.org/) . 
 1. Set repository as: “google-cloud-abap”
 2. In the settings in abapGit, 
    * Select the starting folder as specified above.
