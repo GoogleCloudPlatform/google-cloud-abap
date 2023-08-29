@@ -13,6 +13,9 @@
 ### Vertex AI
 * #### [Process documents](qs_process_documents.md)
     Extract structured data from documents using pre-trained invoice processor model and analyse the data
+    
+* #### [Predict using Vertex AI Model](qs_predict_aimodel.md)
+    Perform Online prediction for text prompts using a Vertex AI Model. This quickstart uses the pre-trained text-bison model published by Google.   
 
 * #### [Translate Texts](qs_translate_texts.md)
     Translate texts in rela time using Google's neutral machine translation and custom machine learning models
