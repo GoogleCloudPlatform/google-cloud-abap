@@ -18,7 +18,8 @@ REPORT zr_pull_subscriptions.
 DATA:
   lv_p_projects_id      TYPE string,
   lv_p_subscriptions_id TYPE string,
-  ls_input              TYPE /goog/cl_pubsub_v1=>ty_026.
+  ls_input              TYPE /goog/cl_pubsub_v1=>ty_026,
+  ls_input_ack          TYPE /goog/cl_pubsub_v1=>ty_001.
 
 TRY.
 
@@ -31,7 +32,7 @@ TRY.
     " Name of the subscription from where we want to pull data
     lv_p_subscriptions_id = 'SAMPLE_SUBSCRIPTION'.
     " Max number of messages that will be received in 1 API call
-    ls_input-max_messages = 10.
+    ls_input-max_messages = 1.
 
 * Call API method
     CALL METHOD lo_client->pull_subscriptions
@@ -40,7 +41,6 @@ TRY.
         iv_p_subscriptions_id = lv_p_subscriptions_id
         is_input              = ls_input
       IMPORTING
-*       ES_RAW                =
         es_output             = DATA(ls_output)
         ev_ret_code           = DATA(lv_ret_code)
         ev_err_text           = DATA(lv_err_text)
@@ -48,7 +48,29 @@ TRY.
 
     IF /goog/cl_http_client=>is_success( lv_ret_code ).
       IF ls_output-received_messages IS NOT INITIAL.
-        MESSAGE 'Messages were received!' TYPE 'S'.
+        "Messages published to Pub/Sub should be base-64 encoded, hence in order to get the exact message, we need to decode the data field.
+        "However, attributes published to Pub/Sub should be accessible without any additional logic.
+        DATA(lv_msg) = | Message Received: { cl_http_utility=>decode_base64( encoded = ls_output-received_messages[ 1 ]-message-data ) }|.
+        APPEND ls_output-received_messages[ 1 ]-ack_id TO ls_input_ack-ack_ids.
+
+* Call API method: pubsub.projects.subscriptions.acknowledge
+        "Acknowledge the messages so it is not pulled again.
+        CALL METHOD lo_client->acknowledge_subscriptions
+          EXPORTING
+            iv_p_projects_id      = lv_p_projects_id
+            iv_p_subscriptions_id = lv_p_subscriptions_id
+            is_input              = ls_input_ack
+          IMPORTING
+            es_output             = DATA(ls_output_ack)
+            ev_ret_code           = lv_ret_code
+            ev_err_text           = lv_err_text
+            es_err_resp           = ls_err_resp.
+
+        IF lo_client->is_success( lv_ret_code ).
+          MESSAGE lv_msg TYPE 'S'.
+        ELSE.
+          MESSAGE lv_err_text TYPE 'E'.
+        ENDIF.
       ELSE.
         MESSAGE 'No Messages were received!' TYPE 'S'.
       ENDIF.
