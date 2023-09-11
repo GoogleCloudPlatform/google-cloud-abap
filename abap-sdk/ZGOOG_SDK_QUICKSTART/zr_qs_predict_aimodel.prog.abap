@@ -61,7 +61,7 @@ TYPES:
 
 
 DATA:
-  lo_aiplatform      TYPE REF TO zgoog_v4_aiplatform_v1,
+  lo_aiplatform      TYPE REF TO /goog/cl_aiplatform_v1,
   lt_instances       TYPE tt_instances,
   ls_params          TYPE t_parameters,
   ls_instance        type t_instances,
@@ -74,7 +74,7 @@ DATA:
   ls_output_llm      TYPE t_output,
   lv_raw             TYPE string,
   ls_err_resp        TYPE /goog/err_resp,
-  ls_input           TYPE zgoog_v4_aiplatform_v1=>ty_001,
+  ls_input           TYPE /goog/cl_aiplatform_v1=>ty_001,
   lo_exception       TYPE REF TO /goog/cx_sdk.
 
 ls_instance-content = 'What is ABAP?'.
