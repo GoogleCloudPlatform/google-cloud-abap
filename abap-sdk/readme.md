@@ -10,7 +10,7 @@ The objective of the ABAP SDK for Google Cloud is to make it easier for SAP deve
 
 This connector will be applicable for SAP NetWeaver stack >= 7.0 versions.
 
-Here is the [launch blog](https://cloud.google.com/blog/products/sap-google-cloud/new-abap-sdk-for-google-cloud-enables-sap-extensions) for reference. 
+Here is the [documentation](https://cloud.google.com/solutions/sap/docs/abap-sdk/latest/developer) for reference. 
 
 ## About this repository:
 
