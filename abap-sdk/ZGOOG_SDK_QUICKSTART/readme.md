@@ -15,5 +15,5 @@
     Extract structured data from documents using pre-trained invoice processor model and analyse the data
     
 * #### [Translate Texts](qs_translate_texts.md)
-    Translate texts in rela time using Google's neutral machine translation and custom machine learning models
+    Translate texts in real time using Google's neutral machine translation and custom machine learning models
 ***
