@@ -3,8 +3,14 @@
  <asx:values>
   <DATA>
    <MASTER_LANGUAGE>E</MASTER_LANGUAGE>
-   <STARTING_FOLDER>/abap-sdk/ZGOOG_SDK_QUICKSTART/</STARTING_FOLDER>
+   <STARTING_FOLDER>/abap-sdk/</STARTING_FOLDER>
    <FOLDER_LOGIC>FULL</FOLDER_LOGIC>
+   <IGNORE>
+    <item>/.gitignore</item>
+    <item>/LICENSE</item>    
+    <item>/README.md</item>
+    <item>/*.md</item>
+   </IGNORE>
   </DATA>
  </asx:values>
 </asx:abap>

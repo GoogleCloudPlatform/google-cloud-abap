@@ -19,24 +19,7 @@ This repository contains code samples, art of possible scenarios, demo code, and
 To consume the code in the repository, you can use abapGit to pull the code into your SAP environment. When you pull the code, you can choose to pull only the folders that are relevant to you, instead of the entire repository. This is because some of the code samples in the repository are only valid for specific environments (for example, S/4HANA only). The compatibility details are also provided in the corresponding README.md files.
 
 ### Repository Structure: 
-| Sub-directory             | Description   | Starting Folder in abapGit |
-| ------------------------- |---------------| ------------- |
-| [ZGOOG_SDK_DOCS_SAMPLES](ZGOOG_SDK_DOCS_SAMPLES) | Demo code to connect Google API’s using the SDK | abap-sdk/ZGOOG_SDK_DOCS_SAMPLES
-| [ZGOOG_SDK_QUICKSTART](ZGOOG_SDK_QUICKSTART) | Guides intended to get a user rapidly acquainted with using ABAP SDK | abap-sdk/ZGOOG_SDK_QUICKSTART
-
-### Consuming the repository: 
-
-Users are advised to pull code into their SAP enviroments using [abapGit](https://abapgit.org/) . 
-1. Set repository as: “google-cloud-abap”
-2. In the settings in abapGit, 
-   * Select the starting folder as specified above.
-   * Change Folder Logic to “FULL”
-
-        ![Alt text](images/img-abapgit-settings.png)
-
-3. Select the package as “**Sub-directory Name**”, additionally create the package in the system if it does not exist.
-4. Select “Clone Repository”
-
-
-
-
+| Sub-directory             | Description   | 
+| ------------------------- |---------------| 
+| [ZGOOG_SDK_DOCS_SAMPLES](ZGOOG_SDK_DOCS_SAMPLES) | Demo code to connect Google API’s using the SDK | 
+| [ZGOOG_SDK_QUICKSTART](ZGOOG_SDK_QUICKSTART) | Guides intended to get a user rapidly acquainted with using ABAP SDK |
