@@ -55,7 +55,7 @@ gcloud services enable dlp.googleapis.com
 
 ### Configure client key for DLP Access
 
-The below configuration will be used by the ABAP SDK to connect to the secret manager API.
+The below configuration will be used by the ABAP SDK to connect to the DLP API.
 
 Goto SPRO > ABAP SDK for Google Cloud > Basic Settings > Configure Client Key and add the following new entry. (Replace the string `PROJECT_ID` with your Google Cloud project Id)
 
@@ -69,7 +69,7 @@ Goto SPRO > ABAP SDK for Google Cloud > Basic Settings > Configure Client Key an
 
 **NOTE** Leave the other fields blank
 
-*  Validate the configuration 'CLIENT_KEY_SM' using SPRO > ABAP SDK for Google Cloud > Utilities > Validate Authentication Configuration.
+*  Validate the configuration 'DEMO_DLP' using SPRO > ABAP SDK for Google Cloud > Utilities > Validate Authentication Configuration.
 ![Validate Config](images/img-validate-config1-sm.png)
 
 ### Create a program for an example Deidentification scenario.
