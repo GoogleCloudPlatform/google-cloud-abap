@@ -60,75 +60,55 @@ TYPES:
   END OF t_output .
 
 
-DATA:
-  lo_aiplatform      TYPE REF TO /goog/cl_aiplatform_v1,
-  lt_instances       TYPE tt_instances,
-  ls_params          TYPE t_parameters,
-  ls_instance        type t_instances,
-  lv_p_projects_id   TYPE string,
-  lv_p_locations_id  TYPE string,
-  lv_p_publishers_id TYPE string,
-  lv_p_models_id     TYPE string,
-  lv_err_text        TYPE string,
-  lv_ret_code        TYPE i,
-  ls_output_llm      TYPE t_output,
-  lv_raw             TYPE string,
-  ls_err_resp        TYPE /goog/err_resp,
-  ls_input           TYPE /goog/cl_aiplatform_v1=>ty_001,
-  lo_exception       TYPE REF TO /goog/cx_sdk.
-
-ls_instance-content = 'What is ABAP?'.
-APPEND ls_instance TO lt_instances.
-ls_params-max_output_tokens  = 256.
-ls_params-temperature = '0.3'.
-ls_params-top_k = '40'.
-ls_params-top_p  = '0.8'.
-
-GET REFERENCE OF lt_instances INTO ls_input-instances.
-GET REFERENCE OF ls_params INTO ls_input-parameters.
+CONSTANTS: lc_ob type c VALUE '{',
+           lc_cb type c VALUE '}'.
 
 TRY.
+* Instantiate the client stub & Call API method
+    DATA(lv_raw) = VALUE string( ).
+    DATA(lo_aiplatform) = NEW /goog/cl_aiplatform_v1( iv_key_name = 'DEMO_AIPLATFORM' ).
 
-* Instantiate the client stub
-    CREATE OBJECT lo_aiplatform
+    lo_aiplatform->predict_models(
       EXPORTING
-        iv_key_name = 'DEMO_AIPLATFORM'.
-
-* Populate relevant parameters
-    lv_p_projects_id = lo_aiplatform->gv_project_id.
-    lv_p_locations_id = 'us-central1'.
-    lv_p_publishers_id = 'google'.
-    lv_p_models_id = 'text-bison'.
-
-
-* Call API method
-    CALL METHOD lo_aiplatform->predict_models
-      EXPORTING
-        iv_p_projects_id   = lv_p_projects_id
-        iv_p_locations_id  = lv_p_locations_id
-        iv_p_publishers_id = lv_p_publishers_id
-        iv_p_models_id     = lv_p_models_id
-        is_input           = ls_input
+        iv_p_projects_id   = CONV #( lo_aiplatform->gv_project_id )
+        iv_p_locations_id  = 'us-central1'
+        iv_p_publishers_id = 'google'
+        iv_p_models_id     = 'text-bison'
+        is_input           = VALUE #(
+parameters = NEW t_parameters(
+      max_output_tokens  = 256
+      temperature = '0.2'
+      top_k = '40'
+      top_p  = '0.8' )
+instances = NEW tt_instances( ( content =
+* Context to AI Model
+ |I will give you an email context, you identify a function name with the parameters from the email to match given cases as following, and | &&
+ |return the results in json format, | &&
+ |provide concise answers, no explanation. | &&
+ |CASE 1. When a retailer order : | && lc_ob &&
+* Desired Output for an order email
+ |"function":"Z_ORDER_DEMO","parameters": | && lc_ob && |"IVendor":Vendor name,"IItem":Item name,"IBoxqty":Box qty| && lc_cb && lc_cb &&
+ |CASE 2. Others : None | &&
+* Actual email content passed to AI Model. You can also try with different verbiage and evaluate the output
+ |Email Content: Hi Team, I need 5 cases of Pepsi 0 Sugar.| ) ) )
       IMPORTING
         es_raw             = lv_raw
-        ev_ret_code        = lv_ret_code
-        ev_err_text        = lv_err_text
-        es_err_resp        = ls_err_resp.
+        ev_ret_code        = data(lv_ret_code)
+        ev_err_text        = data(lv_err_text)
+        es_err_resp        = data(ls_err_resp) ).
+
+* Close the HTTP Connection
+    lo_aiplatform->close( ).
 
 * Deserialize raw output
+    DATA(ls_output_llm) = VALUE t_output( ).
     /goog/cl_json_util=>deserialize_json( EXPORTING iv_json        = lv_raw
                                                     iv_pretty_name = /ui2/cl_json=>pretty_mode-extended
                                           IMPORTING es_data        = ls_output_llm ).
 
 * Display LLM answer
-    DATA: ls_prediction type t_predictions.
-    READ TABLE ls_output_llm-predictions INTO ls_prediction INDEX 1.
+    WRITE: / VALUE #( ls_output_llm-predictions[ 1 ]-content OPTIONAL ).
 
-    WRITE: / ls_prediction-content.
-
-* Close the HTTP Connection
-    lo_aiplatform->close( ).
-
-  CATCH /goog/cx_sdk INTO lo_exception.
+  CATCH /goog/cx_sdk.
 * Implement suitable error handling
 ENDTRY.
