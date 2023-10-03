@@ -33,7 +33,7 @@ CONSTANTS:
 
 TRY.
     "Initialize Bigquery object, pass the client key name that you have configured in /GOOG/CLIENT_KEY table
-    DATA(lo_bq) = NEW /goog/cl_bigquery_v2( iv_key_name = 'DEMO_BQ' ).
+    DATA(lo_bq) = NEW /goog/cl_bigquery_v2( iv_key_name = 'BIGQUERY_V2' ).
 
     "Populate relevant parameters
     lv_project_id = lo_bq->gv_project_id.
