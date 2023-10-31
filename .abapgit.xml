@@ -8,7 +8,9 @@
    <IGNORE>
     <item>/.gitignore</item>
     <item>/LICENSE</item>    
-    <item>/README.md</item>
+    <item>/README.md</item>  
+    <item>/QuickDocs</item>
+    <item>/*pdf</item>
     <item>/*.md</item>
    </IGNORE>
   </DATA>
