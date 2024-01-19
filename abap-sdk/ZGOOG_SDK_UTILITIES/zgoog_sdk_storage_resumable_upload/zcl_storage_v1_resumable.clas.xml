@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_STORAGE_V1_RESUMABLE</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Cloud Storage JSON API v1 - Resumable Upload</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_STORAGE_V1_RESUMABLE</CLSNAME>
+     <CMPNAME>RESUMABLE_UPLOAD_DATA</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Insert Data for resumable upload</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_STORAGE_V1_RESUMABLE</CLSNAME>
+     <CMPNAME>RESUMABLE_UPLOAD_METADATA</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Insert Metadata for a resumeable upload</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

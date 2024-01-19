@@ -23,3 +23,4 @@ To consume the code in the repository, you can use abapGit to pull the code into
 | ------------------------- |---------------| 
 | [ZGOOG_SDK_DOCS_SAMPLES](ZGOOG_SDK_DOCS_SAMPLES) | Demo code to connect Google API’s using the SDK | 
 | [ZGOOG_SDK_QUICKSTART](ZGOOG_SDK_QUICKSTART) | Guides intended to get a user rapidly acquainted with using ABAP SDK |
+| [ZGOOG_SDK_UTILITIES](ZGOOG_SDK_UTILITIES) | General / API Specific utilities |
