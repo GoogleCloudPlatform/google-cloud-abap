@@ -5,6 +5,13 @@
    <MASTER_LANGUAGE>E</MASTER_LANGUAGE>
    <STARTING_FOLDER></STARTING_FOLDER>
    <FOLDER_LOGIC>FULL</FOLDER_LOGIC>
+   <IGNORE>
+    <item>/.gitignore</item>
+    <item>/LICENSE</item>    
+    <item>/README.md</item>
+    <item>/*.md</item>
+    <item>/*.pdf</item>
+   </IGNORE>
   </DATA>
  </asx:values>
 </asx:abap>
