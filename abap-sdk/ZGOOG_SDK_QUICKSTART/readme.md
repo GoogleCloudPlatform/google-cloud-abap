@@ -18,6 +18,9 @@
 * #### [Run Queries using Bigquery](qs_bigquery.md)
     Run queries on a public dataset using Bigquery
 
+* #### [Invoke Cloud Functions](qs_cfinvoker.md)
+    Invoke a cloud function endpoint that publishes a message constructed from the arguments it receives.
+
 ***
 ### AI and Machine Learning
 * #### [Process documents](qs_process_documents.md)
