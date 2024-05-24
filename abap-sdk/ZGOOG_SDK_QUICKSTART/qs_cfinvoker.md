@@ -13,12 +13,13 @@ Before you run this quickstart, make sure that you or your administrators have c
 -   The on-premises or any cloud edition of ABAP SDK for Google Cloud is installed and configured. [See how to install and configure the on-premises or any cloud edition of ABAP SDK for Google Cloud](https://cloud.google.com/solutions/sap/docs/abap-sdk/on-premises-or-any-cloud/latest/install-config).
 -   Authentication to access Google Cloud APIs is set up. [See how to set up authentication](https://cloud.google.com/solutions/sap/docs/abap-sdk/on-premises-or-any-cloud/latest/authentication).
 -   Make sure the Cloud Functions API is enabled in your Google Cloud project.\
-    [Go to API library](https://console.cloud.google.com/project/_/apis/library/pubsub.googleapis.com)
+    [Go to API library]({{console_url}}project/_/apis/library/cloudfunctions.googleapis.com)
 
 Pre-requisites
 --------------
 
 1.  Create a Gen-2 cloud function `cf-gen2-hello-with-args` in GCP console with below code: The entry point in this case is `helloWorld`. Its primary purpose is to create a personalized greeting message for a user, pulling their name from either the body or the query parameters of an HTTP request.
+
 ```
 exports.helloWorld  =  (req,  res)  =>  {
   let  name  =  req.body.name  ||  req.query.name;
@@ -28,9 +29,9 @@ exports.helloWorld  =  (req,  res)  =>  {
 ```
 
 1.  Create a service account `cloud-function-viewer` with roles `Service Account Token Creator` and `Cloud Function Viewer`
-2.  Create a client key `DEMO-CF` to access the cloud function endpoint. The authentication setup will be based on where SAP is hosted. Assign the created service account to this client key. This client key is required to instantiate the Cloud Function API Client Stub and will be used to retrieve the cloud function HTTP endpoint.
+2.  Create a client key `DEMO_CF` to access the cloud function endpoint. The authentication setup will be based on where SAP is hosted. Assign the created service account to this client key. This client key is required to instantiate the Cloud Function API Client Stub and will be used to retrieve the cloud function HTTP endpoint.  
 3.  Create a new service account `cloud-function-invoker` with role `Cloud Run Invoker`
-4.  Create a new client key `DEMO-CF-INVOKER` with the newly created service account. The Authentication class will vary depending on the choice of authentication. Please use the [public documentation](https://cloud.google.com/solutions/sap/docs/abap-sdk/on-premises-or-any-cloud/latest/authentication) to identify the authentication best suitaed for your environment.
+4.  Create a new client key `DEMO_CF_INVOKER` with the newly created service account. The Authentication class will vary depending on the choice of authentication. Please use the [public documentation](https://cloud.google.com/solutions/sap/docs/abap-sdk/on-premises-or-any-cloud/latest/authentication) to identify the authentication best suited for your environment.  
 ![Client Key Configuration](images/img-cfinvoker-clientkey.png)
 
 ## Create a program to invoke a Cloud Function
@@ -46,6 +47,7 @@ exports.helloWorld  =  (req,  res)  =>  {
     9. In the ABAP Editor, add the [linked code](zr_qs_cfinvoker.prog.abap).
 
 2. Run your application in SE38. If successful below output is displayed:
+
 ```
 HTTP Return Code:        200
 Response: Hello Johnny! Full Name: John Doe

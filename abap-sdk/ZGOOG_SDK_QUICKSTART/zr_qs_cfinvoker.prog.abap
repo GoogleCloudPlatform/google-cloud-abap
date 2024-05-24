@@ -20,10 +20,10 @@ DATA(lv_msg)      = CONV string( '{"firstname": "John", "lastname" : "Doe"}' ).
 
 TRY.
     " Create a Client API stub for Cloud Functions
-    DATA(lo_cloudfunc_client) = NEW /goog/cl_cloudfunc_v2(       iv_key_name   = 'DEMO-CF' ).
+    DATA(lo_cloudfunc_client) = NEW /goog/cl_cloudfunc_v2( iv_key_name   = 'DEMO_CF' ).
     " Create a Client API stub for Cloud Function Invoker.
     " Internally this uses the Cloud Function instance to fetch the cloud function HTTP endpoint
-    DATA(lo_cfinvoker_client) = NEW /goog/cl_cloudfunc_invoker(  iv_key_name   = 'DEMO-CF-INVOKER' ).
+    DATA(lo_cfinvoker_client) = NEW /goog/cl_cloudfunc_invoker( iv_key_name   = 'DEMO_CF_INVOKER' ).
 
     " Send additional query parameters as inputs to the cloud function.
     lo_cfinvoker_client->add_common_qparam( iv_name  = 'name'
