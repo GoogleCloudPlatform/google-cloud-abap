@@ -13,88 +13,84 @@
 *  and limitations under the License.                                *
 **********************************************************************
 *&---------------------------------------------------------------------*
-*& Report ZR_CREATE_SPREADSHEET
+*& Report ZR_UPDATE_VALUE_SPREADSHEET
 *&---------------------------------------------------------------------*
-*& Create a Spreadsheet
-** In this sample code data is fetched from ADRC table and
-*&populated in a newly created spreadsheet
+*& Update values in a spreadsheet
+*& In this code Sample we are fetching data from ADRC table and updating
+*& the same in an existing spreadsheet
 *&---------------------------------------------------------------------*
-REPORT zr_create_spreadsheet.
+REPORT zr_update_value_spreadsheet_in.
 
-TYPES :
-  BEGIN OF lty_adrc,
-    addrnumber TYPE ad_addrnum,
-    name1      TYPE ad_name1,
-  END OF lty_adrc.
+TYPES: ty_t_string TYPE TABLE OF string WITH NON-UNIQUE DEFAULT KEY .
 
-DATA : ls_input    TYPE /goog/cl_sheets_v4=>ty_202,
-       ls_ss_prop  TYPE /goog/cl_sheets_v4=>ty_203,
-       lt_sheets   TYPE /goog/cl_sheets_v4=>ty_t_195,
-       ls_sheet    TYPE /goog/cl_sheets_v4=>ty_195,
-       ls_value    TYPE /goog/cl_sheets_v4=>ty_059,
-       lt_values   TYPE /goog/cl_sheets_v4=>ty_t_059,
-       ls_row_data TYPE /goog/cl_sheets_v4=>ty_189,
-       lt_row_data TYPE /goog/cl_sheets_v4=>ty_t_189,
-       ls_data     TYPE /goog/cl_sheets_v4=>ty_144,
-       lt_data     TYPE /goog/cl_sheets_v4=>ty_t_144.
+TYPES : BEGIN OF lty_adrc,
+          addrnumber TYPE ad_addrnum,
+          name1      TYPE ad_name1,
+        END OF lty_adrc,
+        BEGIN OF ty_string,
+          values TYPE ty_t_string,
+        END OF ty_string.
 
-DATA : lt_adrc TYPE STANDARD TABLE OF lty_adrc,
-       ls_adrc TYPE lty_adrc.
+DATA : lv_range          TYPE string,
+       lv_spreadsheet_id TYPE string,
+       ls_data_app       TYPE /goog/cl_sheets_v4=>ty_240,
+       ls_values         TYPE REF TO data.
 
 
+DATA: lt_in_tab    TYPE ty_t_string,
+      lt_out_tab   TYPE STANDARD TABLE OF ty_string,
+      ls_out_tab   TYPE ty_string,
+      lt_adrc_upd  TYPE STANDARD TABLE OF lty_adrc,
+      ls_input_upd TYPE /goog/cl_sheets_v4=>ty_240.
+
+FIELD-SYMBOLS : <fs_value> TYPE any.
 TRY.
     " Open HTTP Connection
-    DATA(lo_client) = NEW /goog/cl_sheets_v4( iv_key_name = 'ABAP_SDK_WORKSPACE' ).
+    DATA(lo_client) = NEW /goog/cl_sheets_v4( iv_key_name = 'SHEETS_TEST' ).
 
-    " Populate properties of the spreadsheet
-    ls_ss_prop-title = 'Address Book'.
+    lv_range = 'Sheet1!A5' . " Range provided using A1 notation " Updating data in Sheet1 from Cell A5
+    lv_spreadsheet_id = 'XXX'. " Populate ID of the spreadsheet to be updated
 
-    " Populate properties of the sheet
-    ls_sheet-properties-sheet_id = '0001'.
-    ls_sheet-properties-title    = 'Address Sheet'.
+    SELECT addrnumber name1
+    FROM adrc
+    INTO CORRESPONDING FIELDS OF TABLE lt_adrc_upd
+    UP TO 20 ROWS.
+    DELETE lt_adrc_upd WHERE name1 IS INITIAL.
 
-    " Populate data in the sheet
-    SELECT addrnumber name1 FROM adrc INTO CORRESPONDING FIELDS OF TABLE lt_adrc UP TO 3 ROWS WHERE name1 IS NOT NULL.
-    LOOP AT lt_adrc INTO ls_adrc.
-      CLEAR : lt_values.
-      ls_value-user_entered_value-string_value = ls_adrc-addrnumber.
-      APPEND ls_value TO lt_values.
-      ls_value-user_entered_value-string_value = ls_adrc-name1.
-      APPEND ls_value TO lt_values. " All the values for be entered in a single row are appended in table lt_values in single iteration
-      ls_row_data-values = lt_values.
-      APPEND ls_row_data TO lt_row_data.
+    LOOP AT lt_adrc_upd INTO DATA(ls_adrc).
+      APPEND ls_adrc-addrnumber TO lt_in_tab.
+      APPEND ls_adrc-name1 TO lt_in_tab.   " Data to be updated in a single row is added in lt_in_tab
+      ls_out_tab-values = lt_in_tab.
+      APPEND ls_out_tab TO lt_out_tab.   "Nested table of all the row data
+      CLEAR lt_in_tab.
     ENDLOOP.
 
-    ls_data-row_data     = lt_row_data. " lt_row_data contains data for multiple rows
-    ls_data-start_column = 0.
-    ls_data-start_row    = 0.
-    APPEND ls_data TO lt_data.
+    CREATE DATA ls_values TYPE TABLE OF ty_string.
+    ASSIGN ls_values->* TO <fs_value>.
+    <fs_value> = lt_out_tab.
+    ls_input_upd-values = ls_values.   " Mapping to type data
 
-    ls_sheet-data = lt_data.
-    APPEND ls_sheet TO lt_sheets. " lt_sheets contains data for multiple sheets of the spreadsheet
-
-    ls_input-properties = ls_ss_prop.
-    ls_input-sheets = lt_sheets.
-
-    " Call API method : Create Spreadsheets
-    CALL METHOD lo_client->create_spreadsheets
+    " Call API Method : Update Values
+    CALL METHOD lo_client->update_values
       EXPORTING
-        is_input    = ls_input            " Spreadsheet
+        iv_q_valueinputoption = 'RAW'               " valueInputOption " The values the user has entered will not be parsed and will be stored as-is.
+        iv_p_range            = lv_range            " range
+        iv_p_spreadsheet_id   = lv_spreadsheet_id   " spreadsheetId
+        is_input              = ls_input_upd        " ValueRange
       IMPORTING
-        es_output   = DATA(ls_output)     " Spreadsheet
-        ev_ret_code = DATA(lv_ret_code)   " Return Code
-        ev_err_text = DATA(lv_err_text)   " Error Text
-        es_err_resp = DATA(lv_err_resp).  " Error Response
+        es_output             = DATA(ls_output)     " UpdateValuesResponse
+        ev_ret_code           = DATA(lv_ret_code)   " Return Code
+        ev_err_text           = DATA(lv_err_text)   " Error Text
+        es_err_resp           = DATA(ls_err_resp).  " Error Response
+
 
     IF lo_client->is_success( lv_ret_code ).
-      " Display the URL of the created spreadsheet
-      cl_demo_output=>display( ls_output-spreadsheet_url ).
+* Display the ID of the updated spreadsheet
+      cl_demo_output=>display( ls_output-spreadsheet_id ).
     ELSE.
-      MESSAGE lv_err_text TYPE 'E'.
+      MESSAGE lv_err_text  TYPE 'E'.
 
     ENDIF.
-
   CATCH /goog/cx_sdk INTO DATA(lo_exception). " ABAP SDK for Google Cloud: Exception Class
     MESSAGE lo_exception->get_text( ) TYPE 'E'.
-
 ENDTRY.
