@@ -1,9 +1,8 @@
-# Utilities for ABAP SDK for Google Cloud
+# Recipes using ABAP SDK for Google Cloud
 
-This folder contains reusable utilities which can be used to enhance the default functionality provided by ABAP SDK.
+This folder contains recipes, which can be used to deploy and familiarize yourself with sample solution pattern. You can then use the recipe as a template for implementing solutions for your own business processes
 
 ### Repository Structure:
 | Sub-directory             | Description   |
 | ------------------------- |---------------|
-| [zgoog_sdk_storage_resumable_upload](zgoog_sdk_storage_resumable_upload) | How to perform a resumable upload to Cloud Storage |
-| [zgoog_sdk_wif](zgoog_sdk_wif) | Authentication using Workload Identity Federation (WIF) |
+| [ZGOOG_SDK_BQML_RECIPE](ZGOOG_SDK_BQML_RECIPE) | How BigQuery ML can be used to derive business insights by utilizing SAP data | 
