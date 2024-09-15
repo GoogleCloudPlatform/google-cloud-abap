@@ -1,4 +1,4 @@
-Pub/Sub to BigQuery with Change Data Capture (CDC) Utilitu
+Pub/Sub to BigQuery with Change Data Capture (CDC) Utility
 ----------------------------------------
 This sample utility can be used to publish data in an internal table as messages to a configured Pub/Sub topic. 
 The utility provides options to add [Change Data Capture (CDC)](https://cloud.google.com/pubsub/docs/bigquery) fields '_CHANGE_TYPE' and '_CHANGE_SEQUENCE_NUMBER' such that existing records in BigQuery can be updated or deleted. 
