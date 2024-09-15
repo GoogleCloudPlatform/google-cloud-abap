@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZGOOG_CL_PUBSUB_TO_BQ</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Pub/Sub to BigQuery</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>SEND_TO_PUBSUB</CMPNAME>
+     <SCONAME>IT_DATA</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Data to be send to Pub/Sub</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SEND_TO_PUBSUB</CMPNAME>
+     <SCONAME>IV_CDC_DEL_VALUE</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>CDC Field Value for Delete Operation</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SEND_TO_PUBSUB</CMPNAME>
+     <SCONAME>IV_CDC_FIELD</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Field in ITAB that has Change Data Capture value</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SEND_TO_PUBSUB</CMPNAME>
+     <SCONAME>IV_CHANGE_SEQUENCE_NUMBER_FLD</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Field in ITAB for setting _CHANGE_SEQUENCE_NUMBER</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SEND_TO_PUBSUB</CMPNAME>
+     <SCONAME>IV_DATASOURCE</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Data Source Configured in table  ZGOOG_PUBSUB_BQ</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>SEND_TO_PUBSUB</CMPNAME>
+     <SCONAME>IV_SET_CDC_FIELDS</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Set CDC Fields : _CHANGE_TYPE &amp; _CHANGE_SEQUENCE_NUMBER</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
+  </asx:values>
+ </asx:abap>
+</abapGit>
