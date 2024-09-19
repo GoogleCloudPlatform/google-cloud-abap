@@ -45,4 +45,4 @@ The utility class method ZGOOG_CL_PUBSUB_TO_BQ=>SEND_TO_PUBSUB can now be used f
 | **EV_ERR_RESP**               | Error Response in case of failures
 
 ### Demo Program
-Use the demo program ZR_DEMO_PUBSUB_TO_BQ to test the utility for the sample scenario documented in the [blog](https://medium.com/google-cloud/use-google-cloud-storage-as-an-application-file-directory-for-sap-3f690962a03c)
+Use the demo program ZR_DEMO_PUBSUB_TO_BQ to test the utility for the sample scenario documented in the [blog](https://medium.com/@uajith/bigquery-change-data-capture-cdc-using-pub-sub-b7881075acb8)
