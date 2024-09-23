@@ -6,5 +6,4 @@ This folder contains recipes, which can be used to deploy and familiarize yourse
 | Sub-directory             | Description   |
 | ------------------------- |---------------|
 | [ZGOOG_SDK_BQML_RECIPE](ZGOOG_SDK_BQML_RECIPE) | How BigQuery ML can be used to derive business insights by utilizing SAP data | 
-| ------------------------- |---------------|
 | [ZGOOG_SDK_DLP_RECIPE](ZGOOG_SDK_DLP_RECIPE) | Data Loss Prevention using ABAP SDK for Google Cloud | 
