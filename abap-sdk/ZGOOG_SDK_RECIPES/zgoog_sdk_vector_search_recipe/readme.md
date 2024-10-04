@@ -311,7 +311,7 @@ Below are the returned products for the query with the [notebook image](https://
 </table>
 
 ### Semantic search using an enterprise Entity ID
-It can also be a requirement for SAP use cases to look up and validate an entity like Product ID to validate if the product is a valid product. Let’s execute a search query to find if product id “GGOEAFKA194799” is a valid product and is present in the indexed product data. This data is indexed in the form of text embeddings and the search key “GMS_PRODUCT_DATA” is configured to look up the product data. To query this based on product id,
+It can also be a requirement for SAP use cases to look up similar enterprise entities like find similar products if a particular product is out of stock. In this section we would see how to perform semantic search using an enterprise entity id. Let’s execute a search query to find products similar to product id “GGOEAFKA194799” in the indexed product data. This data is indexed in the form of text embeddings and the search key “GMS_PRODUCT_DATA” is configured to look up the product data. To query this based on product id,
 * Use the search key “GMS_PRODUCT_DATA” to instantiate Vector Search invoker class /GOOG/CL_VECTOR_SEARCH.
 * Call method FIND_NEIGHBORS_BY_ENTITY_ID by passing,
     * Pass the product id “GGOEGOKA209399” under IV_ENTITY_ID,
@@ -323,7 +323,7 @@ TRY.
     DATA(lo_vector_search) = NEW /goog/cl_vector_search( iv_search_key  = 'GMS_PRODUCT_DATA' ).
     DATA(lt_vector_search_response) = lo_vector_search->find_neighbors_by_entity_id(       
                                                           iv_entity_id = 'GGOEAFKA194799'
-                                                     )->get_nearest_neighbor( ).
+                                                     )->get_nearest_neighbors( ).
     cl_demo_output=>display( lt_vector_search_response ).
   CATCH /goog/cx_sdk INTO DATA(lo_cx_sdk).
     cl_demo_output=>display( 'Search not successful.' && lo_cx_sdk->get_text( ) ).
@@ -331,11 +331,8 @@ TRY.
 ENDTRY.
 ```
 
-Once executed, the product if present is returned, thus validating it is a valid product. The method throws an error if the searched entity id is not present in the index.
+Once executed, similar products are returned back as search results. The method throws an error if the searched entity id is not present in the index.
 ![Alt text](../images/search-result-entity-id.png)
-
-Below is the product data for the product id “GGOEAFKA194799”.
-![Alt text](../images/search-result-product-entity.png)
 
 ## What’s next
 * This [github sample](https://github.com/GoogleCloudPlatform/google-cloud-abap/tree/main/abap-sdk/ZGOOG_SDK_RECIPES/zgoog_sdk_vector_search_recipe) shows an end-to-end example of this recipe guide.  
