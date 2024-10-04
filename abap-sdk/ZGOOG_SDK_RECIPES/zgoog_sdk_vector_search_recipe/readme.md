@@ -315,8 +315,7 @@ It can also be a requirement for SAP use cases to look up similar enterprise ent
 * Use the search key “GMS_PRODUCT_DATA” to instantiate Vector Search invoker class /GOOG/CL_VECTOR_SEARCH.
 * Call method FIND_NEIGHBORS_BY_ENTITY_ID by passing,
     * Pass the product id “GGOEGOKA209399” under IV_ENTITY_ID,
-    * Chain the method call GET_NEAREST_NEIGHBOR to get the match for the searched product,
-    * You can also call the method GET_NEAREST_NEIGHBORS instead to get the closest matches for the product “GGOEGOKA209399” by additionally passing the number of matches to return under IV_NEIGHBOR_COUNT.
+    * Chain the method call GET_NEAREST_NEIGHBORS to get the closest matches for the search query.
  
 ```java
 TRY.
@@ -332,7 +331,6 @@ ENDTRY.
 ```
 
 Once executed, similar products are returned back as search results. The method throws an error if the searched entity id is not present in the index.
-![Alt text](../images/search-result-entity-id.png)
 
 ## What’s next
 * This [github sample](https://github.com/GoogleCloudPlatform/google-cloud-abap/tree/main/abap-sdk/ZGOOG_SDK_RECIPES/zgoog_sdk_vector_search_recipe) shows an end-to-end example of this recipe guide.  
