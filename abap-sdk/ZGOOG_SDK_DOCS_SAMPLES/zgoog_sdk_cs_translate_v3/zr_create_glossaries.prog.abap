@@ -15,37 +15,46 @@
 
 REPORT zr_create_glossaries.
 
+"Data declarations
 DATA: lv_p_projects_id  TYPE string,
       lv_p_locations_id TYPE string,
       ls_input          TYPE /goog/cl_translation_v3=>ty_022.
 
 TRY.
 
-*    Open HTTP Connection
-    DATA(lo_translate) = NEW /goog/cl_translation_v3( iv_key_name = 'TRANSLATE_DEMO' ). "Pass the configured client key
+    "Open HTTP Connection
+    "Pass the configured client key - TRANSLATE_DEMO is used an example, replace it with actual value.
+    DATA(lo_translate) = NEW /goog/cl_translation_v3( iv_key_name = 'TRANSLATE_DEMO' ).
 
-*    Populate required parameters
-    lv_p_projects_id  = lo_translate->gv_project_id.    " Derive project id from the object
-    lv_p_locations_id = 'us-central1'.                  "Set a location id, 'us-central1' is used as example
+    "Populate required parameters
+    "Derive project id from the object
+    lv_p_projects_id  = lo_translate->gv_project_id.
 
-    ls_input-display_name = 'Finance Term Glossary EN to ES'.  "Pass a display name
+    "Set a location id, 'us-central1' is used as example, replace it with actual value.
+    lv_p_locations_id = 'us-central1'.
 
-    ls_input-language_pair-source_language_code = 'en-US'.   "Source language in BCP-47 format
-    ls_input-language_pair-target_language_code = 'es-ES'.   "Target language in BCP-47 format
+    "Pass a display name, the value passed below is an example, replace it with actual value
+    ls_input-display_name = 'Finance Term Glossary EN to ES'.
 
-*    Complete name of glossary has following format:
-*    projects/<PROJECT_ID>/locations/<LOCATION_ID>/glossaries/<GLOSSARY_ID>
+    "Source language in BCP-47 format. The value passed below is an example, replace it with actual value
+    ls_input-language_pair-source_language_code = 'en-US'.
+
+    "Target language in BCP-47 format. The value passed below is an example, replace it with actual value
+    ls_input-language_pair-target_language_code = 'es-ES'.
+
+    "Complete name of glossary has following format:
+    "projects/<PROJECT_ID>/locations/<LOCATION_ID>/glossaries/<GLOSSARY_ID>
+    "The value used for GLOSSARY ID is an exmaple, replace it with actual value
     CONCATENATE 'projects/'
                  lo_translate->gv_project_id
                  '/locations/us-central1/glossaries/'
                  'FI_GLOSSARY_EN_ES'
                  INTO ls_input-name.
 
-*    Pass the complete path of glossary file which is stored in GCS bucket
-*    Below example shows a file named: fi_glossary_data.tsv is stored in a GCS bucket named: glossary_repo
-    ls_input-input_config-gcs_source-input_uri = 'gs://glossary_repo/fi_glossary_data.tsv'.
+    "TODO: Pass the complete path of glossary file which is stored in GCS bucket
+    "ls_input-input_config-gcs_source-input_uri =
 
-*     Call API method
+    "Call API method
     CALL METHOD lo_translate->create_glossaries
       EXPORTING
         iv_p_projects_id  = lv_p_projects_id
@@ -57,14 +66,14 @@ TRY.
         ev_err_text       = DATA(lv_err_text)
         es_err_resp       = DATA(ls_err_resp).
     IF /goog/cl_http_client=>is_success( lv_ret_code ).
-*      This returns a long running operation id as glossary creation is adhoc
-*      You can use the LRO ID to poll to check the status of the operation (SUCCESS Or FAILURE)
+      "This returns a long running operation id for the job that is scheduled for glossary creation
+      "You can use the LRO ID to poll and check the status of the operation
       WRITE: 'LRO ID:', ls_output-name.
     ELSE.
       MESSAGE lv_err_text TYPE 'E'.
     ENDIF.
 
-*    Close HTTP Connection
+    "Close HTTP Connection
     lo_translate->close( ).
 
   CATCH /goog/cx_sdk INTO DATA(lo_exception).
