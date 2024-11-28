@@ -82,14 +82,15 @@ CLASS ZCL_SALV_GOOGLE_SHEETS_PUBLUSH IMPLEMENTATION.
 
         mo_client->create_files(
           EXPORTING
-            is_input        = ls_input
-            is_data         = bin_data->*
-            iv_content_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            is_input               = ls_input
+            is_data                = bin_data->*
+            iv_content_type        = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            iv_q_supportsalldrives = 'true'
           IMPORTING
-            es_output       = DATA(ls_output)
-            ev_ret_code     = DATA(lv_code)
-            ev_err_text     = DATA(lv_text)
-            es_err_resp     = DATA(lv_err_resp) ).
+            es_output              = DATA(ls_output)
+            ev_ret_code            = DATA(lv_code)
+            ev_err_text            = DATA(lv_text)
+            es_err_resp            = DATA(lv_err_resp) ).
 
         target_url_to_launch = ls_output-web_view_link.
 
