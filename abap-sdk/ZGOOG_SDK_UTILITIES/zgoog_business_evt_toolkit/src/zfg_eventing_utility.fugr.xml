@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Utility FMs for Business Eventing Toolki</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZFG_EVENTING_UTILITYTOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZFG_EVENTING_UTILITY</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZFM_IDOC_OWN_FUNCTION</FUNCNAME>
+     <REMOTE_CALL>R</REMOTE_CALL>
+     <SHORT_TEXT>Muster für die eigene Behandlung von IDocs</SHORT_TEXT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>I_EDIDC</PARAMETER>
+       <DBSTRUCT>EDIDC</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>I_EDIDC</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>
