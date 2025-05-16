@@ -47,6 +47,8 @@ You can implement the solution by cloning the repo into your SAP system or manua
 ### Customizing
 You need to enable Google export in your ALV instances by going to transaction SPRO and executing Maintain SAP GUI-Specific Settings under node SAP List Viewer (ALV).
 
+![Alt text](../images/alv-export-spro-config-s4-2023.png)
+
 Each user must configure a Google Drive ID in SPA/GPA parameter ZGOOG_DRIVE_ID by using Transaction Code SU3.
 
 ![Alt text](../images/img-su3-drive_id.png)
@@ -54,5 +56,5 @@ Each user must configure a Google Drive ID in SPA/GPA parameter ZGOOG_DRIVE_ID b
 ### Using the solution 
 After completing all configuration steps, you can now use the export to Google Sheets option in ALV
 
-![Alt text](../images/img-alv-drive-export.png)
+![Alt text](../images/img-alv-drive-export-s4-2023.png)
 
