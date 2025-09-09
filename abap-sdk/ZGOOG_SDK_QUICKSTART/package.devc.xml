@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <DEVC>
-    <CTEXT>Code Samples for different APIs</CTEXT>
+    <CTEXT>Quickstart</CTEXT>
    </DEVC>
   </asx:values>
  </asx:abap>

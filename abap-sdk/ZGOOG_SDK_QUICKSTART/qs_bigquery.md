@@ -84,3 +84,9 @@ For more information about Bigquery public datasets you can read the following l
 -   Create a program in SE38 and paste the [linked](zr_qs_bigquery.prog.abap) code, which runs a query on a publicly available dataset
 
 -   Note: The Client key used in the below program is `DEMO_BQ` which will be used by the SDK to connect to the API.
+
+### Create a program to fetch large results using pagination
+
+- Create a program in SE38 and paste the [linked](zr_qs_bigquery_pagination.prog.abap) code, which runs a query on a publicly available dataset
+
+- This program checks if job is completed, if not polls for the job completion status and then fetches the results by using page tokens.
