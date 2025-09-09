@@ -87,6 +87,6 @@ For more information about Bigquery public datasets you can read the following l
 
 ### Create a program to fetch large results using pagination
 
-- Create a program in SE38 and paste the [linked](zr_qs_bigquery_pagination.prog.abap) code, which runs a query on a publicly available dataset
+- Create a program in SE38 and paste the [linked](zr_qs_bigquery_with_pagination.prog.abap) code, which runs a query on a publicly available dataset
 
 - This program checks if job is completed, if not polls for the job completion status and then fetches the results by using page tokens.
