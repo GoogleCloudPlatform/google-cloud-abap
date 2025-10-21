@@ -56,3 +56,4 @@
 | [Create Spreadsheet](zgoog_sdk_cs_sheets_v4/zr_create_spreadsheet.prog.abap) | This code sample can be used to create a spreadsheet by using Google Cloud Sheets API (v4).<br /> | 
 | [Append values in a spreadsheet](zgoog_sdk_cs_sheets_v4/zr_append_val_spreadsheet.prog.abap) | This code sample can be used to append values in a spreadsheet using Google Cloud Sheets API (v4). | 
 | [Update values in a spreadsheet](zgoog_sdk_cs_sheets_v4/zr_update_value_spreadsheet.prog.abap) | This code sample can be used to update values in a spreadsheet using Google Cloud Sheets API (v4). | 
+| [Create sheet in drive and update values](zgoog_sdk_cs_sheets_v4/zr_create_sheet_in_drive.prog.abap) | This code sample can be used to creating a spreadsheet in a Shared Drive and then to insert values to it using Google Cloud Sheets API (v4). |
