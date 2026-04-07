@@ -18,12 +18,23 @@ public section.
      url type string,
      method type string,
      headers type tt_header_field,
-   END OF t_token_request .
+   END OF t_token_request ,
+
+   BEGIN OF t_aws_creds_fetch,
+      access_key_id TYPE string,
+      secret_access_key TYPE string,
+   END OF t_aws_creds_fetch.
 protected section.
 
   methods GET_EXT_IDP_TOKEN
     redefinition .
 private section.
+
+  class-methods FETCH_DYNAMIC_AWS_CREDS
+    changing
+      !PC_AWS_CREDS type T_AWS_CREDS_FETCH
+    returning
+      value(RV_SUCCESS) type FLAG .
 ENDCLASS.
 
 
@@ -31,6 +42,19 @@ ENDCLASS.
 CLASS ZCL_AUTH_WIF_AWS IMPLEMENTATION.
 
 
+* <SIGNATURE>---------------------------------------------------------------------------------------+
+* | Instance Protected Method ZCL_AUTH_WIF_AWS->GET_EXT_IDP_TOKEN
+* +-------------------------------------------------------------------------------------------------+
+* | [--->] IV_SERVICE_ACCOUNT             TYPE        /GOOG/SERVICE_ACCOUNT_NAME
+* | [--->] IV_KEYNAME                     TYPE        /GOOG/KEYNAME
+* | [--->] IT_QUERY_PARAMS                TYPE        /GOOG/T_HTTP_KEYS
+* | [<---] EV_RET_CODE                    TYPE        /GOOG/RETCO
+* | [<---] EV_ERR_TEXT                    TYPE        STRING
+* | [<---] EV_ERR_RESP                    TYPE        /GOOG/ERR_RESP
+* | [<---] EV_LOGTIME                     TYPE        TIMESTAMP
+* | [<-->] CV_TOKEN                       TYPE        /GOOG/REFRESH_TOKEN
+* | [<-->] CV_TOKEN_TYPE                  TYPE        STRING
+* +--------------------------------------------------------------------------------------</SIGNATURE>
 METHOD get_ext_idp_token.
 **********************************************************************
 *  Copyright 2024 Google LLC                                         *
@@ -87,8 +111,15 @@ METHOD get_ext_idp_token.
   DATA: lv_method TYPE string.
 
   lv_lf = cl_abap_char_utilities=>newline.
-  lv_accesskey = '<Populate AWS Access Key>'.
-  lv_secret_key = '<Populate AWS Secret Access Key>'.
+
+  DATA: ls_aws_creds TYPE t_aws_creds_fetch.
+
+  fetch_dynamic_aws_creds(
+    CHANGING
+      pc_aws_creds = ls_aws_creds ).
+
+  lv_accesskey =  ls_aws_creds-access_key_id.
+  lv_secret_key = ls_aws_creds-secret_access_key.
   lv_datepart = lv_awsdate(8).
   lv_service = 'sts'.
   lv_method = 'GET'.
@@ -290,4 +321,44 @@ METHOD get_ext_idp_token.
   cv_token_type = 'urn:ietf:params:aws:token-type:aws4_request'.
 
 ENDMETHOD.
+
+
+* <SIGNATURE>---------------------------------------------------------------------------------------+
+* | Static Private Method ZCL_AUTH_WIF_AWS=>FETCH_DYNAMIC_AWS_CREDS
+* +-------------------------------------------------------------------------------------------------+
+* | [<-->] PC_AWS_CREDS                   TYPE        T_AWS_CREDS_FETCH
+* | [<-()] RV_SUCCESS                     TYPE        FLAG
+* +--------------------------------------------------------------------------------------</SIGNATURE>
+  METHOD fetch_dynamic_aws_creds.
+    DATA: lo_http       TYPE REF TO if_http_client,
+          lv_imds_token TYPE string,
+          lv_role       TYPE string.
+
+    " Phase 1: Get IMDSv2 Session Token (Security Requirement)
+    cl_http_client=>create_by_url( EXPORTING url = 'http://169.254.169.254/latest/api/token'
+                                   IMPORTING client = lo_http ).
+    lo_http->request->set_method( 'PUT' ).
+    lo_http->request->set_header_field( name = 'X-aws-ec2-metadata-token-ttl-seconds' value = '21600' ).
+    lo_http->send( ). lo_http->receive( ).
+    lv_imds_token = lo_http->response->get_cdata( ). lo_http->close( ).
+
+    " Phase 2: Get IAM Role name
+    cl_http_client=>create_by_url( EXPORTING url = 'http://169.254.169.254/latest/meta-data/iam/security-credentials/'
+                                   IMPORTING client = lo_http ).
+    lo_http->request->set_header_field( name = 'X-aws-ec2-metadata-token' value = lv_imds_token ).
+    lo_http->send( ). lo_http->receive( ).
+    lv_role = lo_http->response->get_cdata( ). lo_http->close( ).
+
+    " Phase 3: Retrieve actual credentials into me->gs_aws_creds
+    cl_http_client=>create_by_url( EXPORTING url = |http://169.254.169.254/latest/meta-data/iam/security-credentials/{ lv_role }|
+                                   IMPORTING client = lo_http ).
+    lo_http->request->set_header_field( name = 'X-aws-ec2-metadata-token' value = lv_imds_token ).
+    lo_http->send( ). lo_http->receive( ).
+
+    /ui2/cl_json=>deserialize( EXPORTING json = lo_http->response->get_cdata( )
+                               CHANGING data = pc_aws_creds ).
+    lo_http->close( ).
+    rv_success = abap_true.
+
+  ENDMETHOD.
 ENDCLASS.
