@@ -1,10 +1,10 @@
 *&---------------------------------------------------------------------*
-*& Report ZR_UTIL_FIND_UNICODE
+*& Report ZR_UTIL_FIND_NON_UNICODE
 *&---------------------------------------------------------------------*
 *& Description: Generic utility to find non-printable or problematic
 *& Unicode characters in a table.
 *&---------------------------------------------------------------------*
-REPORT zr_util_find_unicode.
+REPORT zr_util_find_non_unicode.
 
 * Selection Screen (Variables g_title, lbl_tab, etc. are implicitly declared by screen processor)
 SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE g_title.

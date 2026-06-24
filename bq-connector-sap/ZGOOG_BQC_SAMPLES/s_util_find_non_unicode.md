@@ -2,7 +2,7 @@
 
 This repository contains a generic ABAP utility to identify non-printable or problematic Unicode characters in SAP database tables.
 
-## Program: `ZR_UTIL_FIND_UNICODE`
+## Program: `ZR_UTIL_FIND_NON_UNICODE`
 
 ### Purpose
 
